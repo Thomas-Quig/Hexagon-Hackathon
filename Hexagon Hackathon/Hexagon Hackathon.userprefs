@@ -2,8 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PiecePlacer.cs">
     <Files>
-      <File FileName="Assets/PiecePlacer.cs" Line="35" Column="108" />
-      <File FileName="Assets/Motion.cs" Line="1" Column="1" />
+      <File FileName="Assets/PiecePlacer.cs" Line="6" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

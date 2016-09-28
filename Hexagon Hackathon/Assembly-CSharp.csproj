@@ -48,6 +48,7 @@
      <Compile Include="Assets\Motion.cs" />
      <Compile Include="Assets\PieceBehavior.cs" />
      <Compile Include="Assets\PiecePlacer.cs" />
+     <Compile Include="Assets\ShapeBehavior.cs" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>

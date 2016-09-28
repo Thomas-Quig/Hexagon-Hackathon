@@ -6,7 +6,7 @@ public class PiecePlacer : MonoBehaviour {
 	private int lastNumber = 0; //Most recent number, will be opposite side of hexagon (to make sure it doesnt go out and back to previous place)
 	private int number; 		//What side it is on, starting on top right side of hexagon and going clockwise
 	public GameObject prefab;	//The prefab (Preset) object being instantiated every iteration through the loop
-	public Vector2 originalPos;
+	public Transform originalPos;
 
 	// Use this for initialization
 	void Start () 
@@ -24,10 +24,10 @@ public class PiecePlacer : MonoBehaviour {
 		}
 		Color pieceColor = new Color (red, green, blue, 1f);
 	
-		startingPiece.transform.position = originalPos;		//The position (in the transform variable) of starting piece is equal to (0,0) 
+		startingPiece.transform.position = originalPos.position;		//The position (in the transform variable) of starting piece is equal to (0,0) 
 		startingPiece.transform.parent = this.gameObject.transform; //The parent of this piece is the transform (position) of this script
 		startingPiece.gameObject.GetComponent<SpriteRenderer>().color = pieceColor;//Change the color
-		Vector2 lastPos = originalPos;						//The lastPos, or last position, or most recent position.
+		Vector2 lastPos = originalPos.position;						//The lastPos, or last position, or most recent position.
 
 		for (float i = 0f; i < 3f; i++) //Go through this array 3 more times, on top of the first, that makes four total
 		{
