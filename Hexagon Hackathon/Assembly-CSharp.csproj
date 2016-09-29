@@ -45,7 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Motion.cs" />
+     <Compile Include="Assets\GameManager.cs" />
      <Compile Include="Assets\PieceBehavior.cs" />
      <Compile Include="Assets\PiecePlacer.cs" />
      <Compile Include="Assets\ShapeBehavior.cs" />

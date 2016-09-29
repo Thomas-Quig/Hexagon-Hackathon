@@ -3,14 +3,13 @@ using System.Collections;
 
 public class ShapeBehavior : MonoBehaviour {
 	private string MovementAxisName;
-	private bool enabled;
 	private float MovementInputValue;
 	private Rigidbody2D rigid;
 	// Use this for initialization
 	void Start () 
 	{
 		MovementAxisName = "Horizontal";
-		enabled = true;
+		this.enabled = true;
 		rigid = GetComponent<Rigidbody2D>();
 	}
 	
@@ -32,7 +31,7 @@ public class ShapeBehavior : MonoBehaviour {
 
 	private void Move()
 	{
-		rigid.velocity = new Vector2 (4.5f * MovementInputValue,0);
+		rigid.velocity = new Vector2 (4.5f * MovementInputValue,rigid.velocity.y);
 	}
 
 	private void Turn()
@@ -41,17 +40,23 @@ public class ShapeBehavior : MonoBehaviour {
 		// Apply this rotation to the rigidbody's rotation.
 		if (Input.GetKeyDown (KeyCode.Space)) 
 		{
-			firstRot.rotation = firstRot.rotation * Quaternion.Euler(0f,0f,90f );
+			firstRot.rotation = firstRot.rotation * Quaternion.Euler(0f,0f,60f );
 		}
 
 	}
 
-	private void OnCollisionEnter2D(Collider2D col)
+	private void OnCollisionEnter2D(Collision2D col)
 	{
-		if(col.gameObject.tag.Equals("Wall"))
+		if(col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Piece"))
 			{
-				enabled = false;
+			this.enabled = false;
+			this.gameObject.GetComponent<Rigidbody2D> ().constraints = RigidbodyConstraints2D.FreezeAll;
 			}
+	}
+
+	public bool isActive()
+	{
+		return this.enabled;
 	}
 
 }

@@ -50,7 +50,7 @@ public class PiecePlacer : MonoBehaviour {
 				lastNumber = 4;											//1 + 3 is 4, opposite side of the hexagon... Dont think about this.
 			} 
 
-			if (number == 2) 
+			if (number == 2) //Different side, same concept
 			{
 				currPiece.name = name;
 				currPiece.gameObject.GetComponent<SpriteRenderer>().color = pieceColor;
@@ -95,7 +95,7 @@ public class PiecePlacer : MonoBehaviour {
 				currPiece.transform.parent = this.gameObject.transform;
 				lastNumber = 3;
 			}
-			lastPos = currPiece.transform.position;
+			lastPos = currPiece.transform.position;	//Set the last piece to 
 		}
 	}
 	
