@@ -3,60 +3,101 @@ using System.Collections;
 
 public class ShapeBehavior : MonoBehaviour {
 	private string MovementAxisName;
-	private float MovementInputValue;
-	private Rigidbody2D rigid;
+	private int MovementInputValue;
+	private bool active;
+	public float speed = 3f;
+
 	// Use this for initialization
 	void Start () 
 	{
 		MovementAxisName = "Horizontal";
-		this.enabled = true;
-		rigid = GetComponent<Rigidbody2D>();
+		InvokeRepeating ("MoveVert", 1f, 0.5f);
+		InvokeRepeating ("MoveHoriz", 0f, 0.05f);
+		active = true;
 	}
-	
+
 	// Update is called once per frame
-	private void Update ()
+
+	void Update()
 	{
-		MovementInputValue = Input.GetAxis (MovementAxisName);
+		MovementInputValue = (int)Input.GetAxisRaw (MovementAxisName);
+		Rotate ();
 	}
 
-	private void FixedUpdate()
+
+/*	void MoveVert()
 	{
-		if (enabled) 
+		if (CheckMovement (Vector2.down)) 
 		{
-			Move ();
-			Turn ();
+			this.transform.position += new Vector3 (0f, -0.433f);
+		} 
+		else 
+		{
+			active = false;
 		}
-	
 	}
-
-	private void Move()
+*/
+	void MoveHoriz()
 	{
-		rigid.velocity = new Vector2 (4.5f * MovementInputValue,rigid.velocity.y);
+		if (active) 
+		{
+			if (MovementInputValue != 0)
+			{
+				if (CheckMovement (new Vector2 (MovementInputValue, 0f))) 
+				{ 
+					this.transform.position += new Vector3 (MovementInputValue , 0f);
+				}
+			}
+		}
 	}
 
-	private void Turn()
+	void Rotate()
+	{
+		if (active) 
+		{
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				CheckTurning (); 
+			}
+		}
+
+	}
+
+
+	//Tester Methods
+	bool CheckMovement(Vector2 direction)
+	{
+		bool moveable = true;
+		PieceBehavior[] pieces = GetComponentsInChildren<PieceBehavior> ();
+		for (int i = 0; i < pieces.Length; i++) {
+			if (!(pieces [i].CanMove(direction))) 
+			{
+				moveable = false;
+			}
+		}
+		return moveable;
+	}
+
+	void CheckTurning()
 	{
 		Transform firstRot = GetComponentInChildren<Transform> ();
 		// Apply this rotation to the rigidbody's rotation.
-		if (Input.GetKeyDown (KeyCode.Space)) 
-		{
-			firstRot.rotation = firstRot.rotation * Quaternion.Euler(0f,0f,60f );
-		}
-
-	}
-
-	private void OnCollisionEnter2D(Collision2D col)
-	{
-		if(col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Piece"))
+		firstRot.rotation = firstRot.rotation * Quaternion.Euler (0f, 0f, -60f);
+		bool moveable = true;
+		PieceBehavior[] pieces = GetComponentsInChildren<PieceBehavior> ();
+		for (int i = 0; i < pieces.Length; i++) {
+			if (!(pieces [i].CanTurn())) 
 			{
-			this.enabled = false;
-			this.gameObject.GetComponent<Rigidbody2D> ().constraints = RigidbodyConstraints2D.FreezeAll;
+				moveable = false;
 			}
+		}
+		if (moveable == false) {
+			firstRot.rotation = firstRot.rotation * Quaternion.Euler (0f, 0f, 60f);
+		}
 	}
 
-	public bool isActive()
+	public bool IsActive()
 	{
-		return this.enabled;
+		return active;
 	}
 
 }

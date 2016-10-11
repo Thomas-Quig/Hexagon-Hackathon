@@ -11,7 +11,7 @@ public class PiecePlacer : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		GameObject startingPiece = Instantiate(prefab);	//Creates the starting piece, spawned at (0,0) for the moment
+		GameObject startingPiece = (GameObject)Instantiate(prefab);	//Creates the starting piece, spawned at (0,0) for the moment
 		GameObject currPiece;							//The Current piece
 
 		float red = Random.Range (0f,1f);				//Random Red color
@@ -24,7 +24,7 @@ public class PiecePlacer : MonoBehaviour {
 		}
 		Color pieceColor = new Color (red, green, blue, 1f);
 	
-		startingPiece.transform.position = originalPos.position;		//The position (in the transform variable) of starting piece is equal to (0,0) 
+		startingPiece.transform.position = originalPos.transform.position;
 		startingPiece.transform.parent = this.gameObject.transform; //The parent of this piece is the transform (position) of this script
 		startingPiece.gameObject.GetComponent<SpriteRenderer>().color = pieceColor;//Change the color
 		Vector2 lastPos = originalPos.position;						//The lastPos, or last position, or most recent position.
@@ -46,7 +46,7 @@ public class PiecePlacer : MonoBehaviour {
 				currPiece.name = name;													//Change name 
 				currPiece.gameObject.GetComponent<SpriteRenderer>().color = pieceColor;	//Change color
 				currPiece.transform.position = (new Vector2 (-0.75f, 0.433f) + lastPos);//Change position based on previous position
-				currPiece.transform.parent = this.gameObject.transform;	//Set parent to the shape object
+				currPiece.transform.parent = this.transform;	//Set parent to the shape object
 				lastNumber = 4;											//1 + 3 is 4, opposite side of the hexagon... Dont think about this.
 			} 
 
@@ -54,7 +54,7 @@ public class PiecePlacer : MonoBehaviour {
 			{
 				currPiece.name = name;
 				currPiece.gameObject.GetComponent<SpriteRenderer>().color = pieceColor;
-				currPiece.transform.parent = this.gameObject.transform;
+				currPiece.transform.parent = this.transform;
 				currPiece.transform.position = (new Vector2 (0f, 0.866f) + lastPos);
 
 				lastNumber = 5;
@@ -64,8 +64,9 @@ public class PiecePlacer : MonoBehaviour {
 			{
 				currPiece.name = name;
 				currPiece.gameObject.GetComponent<SpriteRenderer>().color = pieceColor;
+				currPiece.transform.parent = this.transform;
 				currPiece.transform.position = (new Vector2 (0.75f, 0.433f) + lastPos);
-				currPiece.transform.parent = this.gameObject.transform;
+				
 				lastNumber = 6;
 			}
 
@@ -73,8 +74,9 @@ public class PiecePlacer : MonoBehaviour {
 			{
 				currPiece.name = name;
 				currPiece.gameObject.GetComponent<SpriteRenderer>().color = pieceColor;
+				currPiece.transform.parent = this.transform;
 				currPiece.transform.position = (new Vector2 (-0.75f, 0.433f) + lastPos);
-				currPiece.transform.parent = this.gameObject.transform;
+				
 				lastNumber = 1;
 			}
 
@@ -82,7 +84,7 @@ public class PiecePlacer : MonoBehaviour {
 			{
 				currPiece.name = name;
 				currPiece.gameObject.GetComponent<SpriteRenderer>().color = pieceColor;
-				currPiece.transform.parent = this.gameObject.transform;
+				currPiece.transform.parent = this.transform;
 				currPiece.transform.position = (new Vector2 (0f, -0.866f) + lastPos);
 
 				lastNumber = 2;
@@ -91,8 +93,9 @@ public class PiecePlacer : MonoBehaviour {
 			{
 				currPiece.name = name;
 				currPiece.gameObject.GetComponent<SpriteRenderer>().color = pieceColor;
+				currPiece.transform.parent = this.transform;
 				currPiece.transform.position = (new Vector2 (-0.75f, -0.433f) + lastPos);
-				currPiece.transform.parent = this.gameObject.transform;
+				
 				lastNumber = 3;
 			}
 			lastPos = currPiece.transform.position;	//Set the last piece to 
